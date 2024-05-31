@@ -1,0 +1,149 @@
+{
+  "name": "position",
+  "description": "",
+  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "config": {
+    "API_HOST": "ws://localhost/gwf/",
+    "PORT": 6060,
+    "ENABLE_SSO": true
+  },
+  "genx": {
+    "app": {
+      "rootElement": "position-root"
+    },
+    "federation": {
+      "remotes": [
+        "@genesislcap/foundation-zero"
+      ]
+    }
+  },
+  "scripts": {
+    "baseline": "npm run clean && npm run bootstrap",
+    "bootstrap": "npm install --no-fund --no-audit",
+    "bootstrap:ci": "npm ci --no-fund --no-audit",
+    "build": "genx build -e ENABLE_SSO",
+    "build:stats": "genx analyze",
+    "clean": "genx clean dist node_modules",
+    "dev": "genx dev -e API_HOST,ENABLE_SSO",
+    "dev:docker": "npm run dev -- --host 0.0.0.0",
+    "dev:intellij": "genx dev -e ENABLE_SSO -b webpack",
+    "dev:no-open": "npm run dev -- --no-open",
+    "dev:https": "npm run dev -- --https",
+    "dev:webpack": "npm run dev -- -b webpack",
+    "dsconfig": "dsconfig --path src/styles/design-tokens.json",
+    "git:setup": "cd .. && npx --yes husky install",
+    "lint": "genx lint --profile",
+    "lint:fix": "genx lint --fix",
+    "lint:eslint": "genx lint -l eslint --profile",
+    "lint:stylelint": "genx lint -l stylelint",
+    "serve": "genx serve",
+    "test": "genx test",
+    "test:coverage": "genx test --coverage",
+    "test:unit:watch": "genx test --watch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint"
+    ],
+    "*.styles.ts": [
+      "stylelint"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "@genesislcap/eslint-config"
+  },
+  "stylelint": {
+    "extends": "@genesislcap/stylelint-config"
+  },
+  "prettier": "@genesislcap/prettier-config",
+  "devDependencies": {
+    "@genesislcap/design-system-configurator": "14.183.1",
+    "@genesislcap/foundation-testing": "14.183.1",
+    "@genesislcap/genx": "14.183.1",
+    "husky": "^7.0.4",
+    "lint-prepush": "^2.2.1",
+    "lint-staged": "^12.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-ts-important-stuff": "^1.1.0",
+    "eslint-plugin-prettier": "^4.2.1"
+  },
+  "dependencies": {
+    "@ag-grid-community/client-side-row-model": "29.2.0",
+    "@ag-grid-community/core": "29.2.0",
+    "@ag-grid-community/csv-export": "29.2.0",
+    "@ag-grid-community/styles": "29.2.0",
+    "@ag-grid-enterprise/clipboard": "29.2.0",
+    "@ag-grid-enterprise/column-tool-panel": "29.2.0",
+    "@ag-grid-enterprise/core": "29.2.0",
+    "@ag-grid-enterprise/excel-export": "29.2.0",
+    "@ag-grid-enterprise/filter-tool-panel": "29.2.0",
+    "@ag-grid-enterprise/menu": "29.2.0",
+    "@ag-grid-enterprise/range-selection": "29.2.0",
+    "@ag-grid-enterprise/row-grouping": "29.2.0",
+    "@ag-grid-enterprise/server-side-row-model": "29.2.0",
+    "@ag-grid-enterprise/set-filter": "29.2.0",
+    "@ag-grid-enterprise/status-bar": "29.2.0",
+    "@ag-grid-enterprise/side-bar": "29.2.0",
+    "@genesislcap/foundation-comms": "14.183.1",
+    "@genesislcap/foundation-criteria": "14.183.1",
+    "@genesislcap/foundation-entity-management": "14.183.1",
+    "@genesislcap/foundation-errors": "14.183.1",
+    "@genesislcap/foundation-events": "14.183.1",
+    "@genesislcap/foundation-forms": "14.183.1",
+    "@genesislcap/foundation-header": "14.183.1",
+    "@genesislcap/foundation-inbox": "14.183.1",
+    "@genesislcap/foundation-fdc3": "14.183.1",
+    "@genesislcap/foundation-layout": "14.183.1",
+    "@genesislcap/foundation-login": "14.183.1",
+    "@genesislcap/foundation-auth": "14.183.1",
+    "@genesislcap/foundation-notifications": "14.183.1",
+    "@genesislcap/foundation-reporting": "14.183.1",
+    "@genesislcap/foundation-store": "14.183.1",
+    "@genesislcap/foundation-ui": "14.183.1",
+    "@genesislcap/foundation-utils": "14.183.1",
+    "@genesislcap/foundation-zero": "14.183.1",
+    "@genesislcap/foundation-zero-grid-pro": "14.183.1",
+    "@genesislcap/g2plot-chart": "14.183.1",
+    "@genesislcap/grid-pro": "14.183.1",
+    "@genesislcap/pbc-notify-ui": "1.0.30",
+    "@genesislcap/pbc-documents-ui": "0.0.10",
+    "@genesislcap/pbc-reporting-ui": "1.0.4",
+    "@microsoft/fast-components": "^2.16.6",
+    "@microsoft/fast-element": "^1.7.0",
+    "@microsoft/fast-foundation": "^2.33.4",
+    "@microsoft/fast-router": "^0.4.2",
+    "@microsoft/fast-web-utilities": "^5.0.1",
+    "rxjs": "^7.4.0",
+    "@finos/fdc3": "^2.1.0-beta.5",
+    "tslib": "^2.3.1"
+  },
+  "overrides": {
+    "@genesislcap/foundation-comms": "14.183.1",
+    "@genesislcap/foundation-entity-management": "14.183.1",
+    "@genesislcap/foundation-events": "14.183.1",
+    "@genesislcap/foundation-forms": "14.183.1",
+    "@genesislcap/foundation-header": "14.183.1",
+    "@genesislcap/foundation-inbox": "14.183.1",
+    "@genesislcap/foundation-layout": "14.183.1",
+    "@genesislcap/foundation-logger": "14.183.1",
+    "@genesislcap/foundation-login": "14.183.1",
+    "@genesislcap/foundation-shell": "14.183.1",
+    "@genesislcap/foundation-store": "14.183.1",
+    "@genesislcap/foundation-ui": "14.183.1",
+    "@genesislcap/foundation-utils": "14.183.1",
+    "@genesislcap/foundation-zero": "14.183.1",
+    "@genesislcap/foundation-zero-grid-pro": "14.183.1",
+    "@genesislcap/g2plot-chart": "14.183.1"
+  }
+}

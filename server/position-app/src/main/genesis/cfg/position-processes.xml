@@ -1,0 +1,73 @@
+<!--
+!
+!   System              : position
+!   Sub-System          : position Configuration
+!   Version             : 1.0
+!   Copyright           : (c) GENESIS
+!   Date                : 2021-09-07
+!
+!   Function : Provide Process Config details for position.
+!
+!   Modification History
+!
+-->
+<processes>
+  <process name="POSITION_DATASERVER">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx1024m -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-dataserver</module>
+    <package>global.genesis.dataserver.pal</package>
+    <script>position-dataserver.kts</script>
+    <description>Displays real-time details</description>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_REQUEST_SERVER">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx256m -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-requestserver</module>
+    <package>global.genesis.requestreply.pal</package>
+    <script>position-reqrep.kts</script>
+    <description>Server one-shot requests for details</description>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_EVENT_HANDLER">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx512m -DRedirectStreamsToLog=true -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-eventhandler,file-server-app</module>
+    <package>global.genesis.eventhandler.pal,global.genesis.file.storage,global.genesis.file.templates</package>
+    <script>position-eventhandler.kts</script>
+    <description>Handles events</description>
+    <classpath>position-app*</classpath>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_CONSOLIDATOR">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx256m -DRedirectStreamsToLog=true -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-consolidator</module>
+    <package>global.genesis.pal.consolidator</package>
+    <script>position-consolidator.kts</script>
+    <loggingLevel>INFO,DATADUMP_OFF</loggingLevel>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_EVALUATOR">
+    <start>true</start>
+    <groupId>POSITION</groupId>
+    <options>-Xmx512m -DXSD_VALIDATE=false</options>
+    <module>genesis-evaluator</module>
+    <package>global.genesis.eventhandler,global.genesis.evaluator</package>
+    <description>Dynamic/time rules engine</description>
+  </process>
+  <process name="POSITION_BBG_ADAPTOR">
+    <start>true</start>
+    <groupId>POSITION</groupId>
+    <options>-Xmx512m -DXSD_VALIDATE=false</options>
+    <classpath>position-bbg-adaptor-*,position-app-*,genesis-messages-*</classpath>
+    <module>genesis-pal-eventhandler</module>
+    <package>global.genesis.bbg.mktdata.adapter</package>
+    <description>Bloomberg Market data feed</description>
+  </process>
+</processes>

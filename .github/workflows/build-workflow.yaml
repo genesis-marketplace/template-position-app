@@ -1,0 +1,41 @@
+# This is a workflow calling the steps-jobs from appdev-devops repo which has the main file
+name: Mono Deploy
+
+on:
+  push:
+    tags:
+      - "*"
+
+# A workflow run is called from the devops appdev-workflow repos
+jobs:
+  gradle-build:
+    uses: genesislcap/appdev-workflows/.github/workflows/build-gradle.yml@develop
+    with:
+      product_name: position
+      version: ${{ github.ref_name }}
+      java_version: '17'
+      server-path: server
+      server-build-gradle-arguments: ${{ inputs.server-gradle-arguments }}
+      server-install-gradle-arguments: ${{ inputs.server-gradle-arguments }}
+      node_version: 20.x
+      distribution_dir: .
+    secrets:
+      GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
+      JFROG_USERNAME: ${{secrets.JFROG_USERNAME}}
+      JFROG_EMAIL: ${{secrets.JFROG_EMAIL}}
+      JFROG_PASSWORD: ${{secrets.JFROG_PASSWORD}}
+      GPR_READ_TOKEN: ${{secrets.GPR_READ_TOKEN}}
+
+  rpm-build:
+    needs: gradle-build
+    uses: genesislcap/appdev-workflows/.github/workflows/build-rpm.yml@develop
+    with:
+      product_name: position
+      version: ${{ github.ref_name }}
+      artifactory_deploy_locations: product/position/rpm/genesis/
+      server-distribution: product/position/server/genesis_position_package-${{ github.ref_name }}.tar.gz
+      client-distribution: product/position/web/position-web-${{ github.ref_name }}.zip
+      genesis-user: position
+    secrets:
+      JFROG_USERNAME: ${{secrets.JFROG_USERNAME}}
+      JFROG_PASSWORD: ${{secrets.JFROG_PASSWORD}}

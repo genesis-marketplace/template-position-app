@@ -1,0 +1,8 @@
+"NAME","DESCRIPTION","STATUS"
+"TRADER","Jane Dee awesome bio","ACTIVE"
+"USER_ADMIN","User Admin related functionality","ACTIVE"
+"NOTIFICATION_ADMIN","Notification Admin has the ability to perform any admin action related to notifications","ACTIVE"
+"NOTIFICATION_RULE_ADMIN","Notification Rule Admin has the ability to create notification rules","ACTIVE"
+"NOTIFICATION_RULE_TEMPLATE_ADMIN","Notification Rule Template Admin has the ability to create notification rule templates","ACTIVE"
+"NOTIFICATION_RULE_USER","Notification Rule User has the ability to subscribe/unsubscribe etc to notification rules","ACTIVE"
+
